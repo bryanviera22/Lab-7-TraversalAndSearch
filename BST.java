@@ -1,4 +1,8 @@
-class BST { 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+class BST {
 	private Node root; 
     //Basic Node definition. Each Node contains a Value, a left child, and a right child
     class Node { 
@@ -71,8 +75,34 @@ class BST {
             System.out.print(root.val + " ");
         }
     }
+
+    private void search(Node root, int key){
+
+        //if value is not found in tree
+        if(root == null){
+        System.out.println("Value not found in tree");
+        return;
+        }
+
+        ///value is found in tree
+        if(root.val == key){
+            System.out.println("Value is found in tree");
+            return;
+        }
+
+        /*If provided/ available value is less than the value of root node, recurse left subtree
+        else recurse right subtree */
+
+        if(key < root.val){
+            search(root.left, key);
+        }
+        else{
+            search(root.right, key);
+        }
+    }
   
-    public static void main(String[] args) { 
+    public static void main(String[] args) throws IOException {
+
     	//create tree with a root of 5
         BST tree = new BST(5);   
       
@@ -82,6 +112,15 @@ class BST {
         tree.insert(tree.root,4); 
         tree.insert(tree.root,1);
 
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        System.out.print("Search Tree: ");
+        String input = reader.readLine();
+        int number = Integer.parseInt(input);
+
+        tree.search(tree.root, number);
+        System.out.println("");
+
+
         //start traversal at root
         System.out.println("Inorder Traversal Tree");
         tree.inorderTraversal(tree.root);
@@ -89,5 +128,5 @@ class BST {
         tree.preorderTraversal(tree.root);
         System.out.println("\n\nPostorder Traversal Tree");
         tree.postorderTraversal(tree.root);
-    } 
+    }
 }
